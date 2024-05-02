@@ -24,8 +24,8 @@ exports.updateImage = async (req, res, next) => {
 
 exports.deleteDisease = async (req, res, next) => {
     try {
-        const { disname } = req.query; // Assuming email is passed as a parameter
-        const deletedData = await DiseaseService.deleteDisease(dis);
+        const { disname } = req.query;
+        const deletedData = await DiseaseService.deleteDisease(disname);
         res.status(200).json({ status: true, message: "Disease deleted successfully", data: deletedData });
     } catch (error) {
         next(error);

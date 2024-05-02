@@ -3,8 +3,14 @@ const CustomerService = require('../Services/Customerservice');
 
 exports.registerUser = async (req, res, next) => {
     try {
-        const {  fname, lname, phone, time, img,email, password, } = req.body;
-        const user = await CustomerService.createUser( fname, lname, phone, time, img,email, password);
+        const { fname, lname, phone, time, email, password } = req.body;
+        
+        // Check if req.file exists and if img property is present
+        if (!req.file || !req.file.filename) {
+            return res.status(400).json({ status: false, message: "No file uploaded" });
+        }
+
+        const user = await CustomerService.createUser(fname, lname, phone, time, req.file.filename, email, password);
         res.status(201).json({ status: true, message: "User registered successfully", data: user });
     } catch (error) {
         next(error);
@@ -13,7 +19,7 @@ exports.registerUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
     try {
-        const { email,fname,lname,phone } = req.body; // Assuming email is passed as a parameter
+        const { email,fname,lname,phone } = req.body; 
         const updatedUser = await CustomerService.updateUser(email, fname,lname,phone);
         if (!updatedUser) {
             return res.status(404).json({ status: false, message: "User not found" });
@@ -25,11 +31,17 @@ exports.updateUser = async (req, res, next) => {
 };
 exports.updateImgUser = async (req, res, next) => {
     try {
-        const { email,img } = req.body; // Assuming email is passed as a parameter
-        const updatedUser = await CustomerService.updateUser(email,img);
+        const { email, img } = req.body; 
+        if (!req.files || !req.files.img) {
+            return res.status(400).json({ status: false, message: "No image uploaded" });
+        }
+
+        const updatedUser = await CustomerService.updateUser(email, img);
+
         if (!updatedUser) {
             return res.status(404).json({ status: false, message: "User not found" });
         }
+
         res.status(200).json({ status: true, message: "User updated successfully", data: updatedUser });
     } catch (error) {
         next(error);

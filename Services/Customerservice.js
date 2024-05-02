@@ -2,12 +2,12 @@ const UserModel = require('../Models/Customer');
 class CustomerService {
     static async createUser(fname, lname, phone, time, img, email, password) {
         try {
-            const newUser = new UserModel({ fname, lname, phone, time, img, email, password });
-            return await newUser.save();
+          const newUser = new UserModel({ fname, lname, phone, time, img, email, password });
+          return await newUser.save();
         } catch (error) {
-            throw error;
+          throw new Error("Error creating user: " + error.message);
         }
-    }
+      }
 
     static async getUserByEmail(email) {
         try {
@@ -17,7 +17,18 @@ class CustomerService {
             throw error;
         }
     }
-
+    static async updateUser(email, updateObject) {
+        try {
+          const updatedUser = await UserModel.findOneAndUpdate(
+            { email },
+            updateObject,
+            { new: true }
+          );
+          return updatedUser;
+        } catch (error) {
+          throw error;
+        }
+      }
     static async getAllUsers() {
         try {
             return await UserModel.find({});

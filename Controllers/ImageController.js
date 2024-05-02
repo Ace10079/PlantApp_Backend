@@ -2,8 +2,11 @@ const ImageService = require('../Services/ImageService');
 
 exports.registerImage = async (req, res, next) => {
     try {
-        const { name,dis_name, time, img, email, date } = req.body;
-        const image = await AdminService.registerAdmin(name,dis_name, time, img, email, date);
+        const { name,dis_name, time, email, date } = req.body;
+        if (!req.file || !req.file.filename) {
+            return res.status(400).json({ status: false, message: "No file uploaded" });
+        }
+        const image = await AdminService.registerAdmin(name,dis_name, time, req.file.filename, email, date);
         res.status(201).json({ status: true, message: "Image registered successfully", data: image });
     } catch (error) {
         next(error);
