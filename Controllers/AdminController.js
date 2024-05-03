@@ -11,7 +11,7 @@ exports.registerAdmin = async (req, res, next) => {
 };
 exports.updateAdmin = async (req, res, next) => {
     try {
-        const { email,name,phone,time,date,password } = req.body; // Assuming email is passed as a parameter
+        const { email,name,phone,time,date,password } = req.body; 
         const updatedUser = await AdminService.updateAdmin(email, name,phone,time,date,password);
         if (!updatedUser) {
             return res.status(404).json({ status: false, message: "Admin not found" });
@@ -24,12 +24,16 @@ exports.updateAdmin = async (req, res, next) => {
 
 exports.deleteAdmin = async (req, res, next) => {
     try {
-        const { email } = req.query; // Assuming email is passed as a parameter
-        const deletedData = await AdminService.deleteAdmin(email);
-        res.status(200).json({ status: true, message: "Admin deleted successfully", data: deletedData });
-    } catch (error) {
-        next(error);
-    }
+        const { email } = req.body; // Assuming email is in the request body for security
+        const deletedAdmin = await AdminService.deleteAdmin(email);
+        if (!deletedAdmin) {
+          return res.status(404).json({ status: false, message: "Admin not found" });
+        }
+        res.status(200).json({ status: true, message: "User deleted successfully", data: deletedAdmin });
+      } catch (error) {
+        console.error(error.message); // Log the error for debugging
+        res.status(500).json({ status: false, message: "Error deleting user" });
+      }
 };
 exports.getAllAdmins = async (req, res, next) => {
     try {
@@ -42,8 +46,8 @@ exports.getAllAdmins = async (req, res, next) => {
 exports.getAdminByEmail = async (req, res, next) => {
     try {
         const {email} = req.query;
-        const user = await AdminService.getAdminByEmail(email);
-        res.status(200).json({ status: true, message: "Admin retrieved successfully", data: user });
+        const admin = await AdminService.getAdminByEmail(email);
+        res.status(200).json({ status: true, message: "Admin retrieved successfully", data: admin });
     } catch (error) {
         next(error);
     }

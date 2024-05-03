@@ -9,15 +9,14 @@ class CustomerService {
         }
       }
 
-    static async getUserByEmail(email) {
+      static async getUserByEmail(email) {
         try {
-            var query = {email:email};
-            return await UserModel.findOne(query);
+            const user = await UserModel.findOne({ email }); // Query for a user with the specified email
+            return user;
         } catch (error) {
             throw error;
         }
     }
-
     static async updateUserProfile(email, fname, lname, phone) {
         try {
             var query = {email: email};
@@ -42,8 +41,16 @@ class CustomerService {
 
     static async deleteUser(email) {
         try {
-            var query = {email:email};
-            return await UserModel.findOneAndDelete(query);
+          const deletedUser = await UserModel.findOneAndDelete({ email });
+          return deletedUser;
+        } catch (error) {
+          throw error;
+        }
+      }
+      static async getAllUsers() {
+        try {
+            const users = await UserModel.find(); // Retrieve all users from the database
+            return users;
         } catch (error) {
             throw error;
         }

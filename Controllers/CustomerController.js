@@ -26,12 +26,16 @@ exports.updateUserProfile = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
     try {
-        const { email } = req.query; // Assuming email is passed as a parameter
-        const deletedData = await CustomerService.deleteUser(email);
-        res.status(200).json({ status: true, message: "User deleted successfully", data: deletedData });
-    } catch (error) {
-        next(error);
-    }
+        const { email } = req.body; // Assuming email is in the request body for security
+        const deletedUser = await CustomerService.deleteUser(email);
+        if (!deletedUser) {
+          return res.status(404).json({ status: false, message: "User not found" });
+        }
+        res.status(200).json({ status: true, message: "User deleted successfully", data: deletedUser });
+      } catch (error) {
+        console.error(error.message); // Log the error for debugging
+        res.status(500).json({ status: false, message: "Error deleting user" });
+      }
 };
 exports.getAllUsers = async (req, res, next) => {
     try {
@@ -43,10 +47,15 @@ exports.getAllUsers = async (req, res, next) => {
 };
 exports.getUserByEmail = async (req, res, next) => {
     try {
-        const {email} = req.query;
+        const { email } = req.query;
         const user = await CustomerService.getUserByEmail(email);
+        if (!user) {
+            return res.status(404).json({ status: false, message: "User not found" });
+        }
+        delete user.password;
         res.status(200).json({ status: true, message: "User retrieved successfully", data: user });
     } catch (error) {
-        next(error);
+        console.error(error.message);
+        res.status(500).json({ status: false, message: "Error retrieving user" });
     }
 };

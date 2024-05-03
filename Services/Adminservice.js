@@ -19,18 +19,18 @@ class AdminService {
 
     static async getAllAdmins() {
         try {
-            return await AdminModel.find({});
+            const admin = await AdminModel.find(); // Retrieve all users from the database
+            return admin;
         } catch (error) {
             throw error;
         }
     }
 
-    static async updateAdmin(email,name) {
+    static async updateAdmin(email, name) {
         try {
-            var query = {email:email};
-            var values = {$set: {name}};
-
-            return await AdminModel.updateOne(query,values);
+            const query = { email: email };
+            const update = { $set: { name: name } }; 
+            return await AdminModel.updateOne(query, update);
         } catch (error) {
             throw error;
         }
@@ -38,10 +38,11 @@ class AdminService {
 
     static async deleteAdmin(email) {
         try {
-            return await AdminModel.findOneAndDelete({ email });
-        } catch (error) {
+            const deletedAdmin = await AdminModel.findOneAndDelete({ email });
+            return deletedAdmin;
+          } catch (error) {
             throw error;
-        }
+          }
     }
 }
 
