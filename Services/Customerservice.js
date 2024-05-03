@@ -17,42 +17,24 @@ class CustomerService {
             throw error;
         }
     }
-    static async updateUser(email, updateObject) {
+
+    static async updateUserProfile(email, fname, lname, phone) {
         try {
-          const updatedUser = await UserModel.findOneAndUpdate(
-            { email },
-            updateObject,
-            { new: true }
-          );
-          return updatedUser;
-        } catch (error) {
-          throw error;
-        }
-      }
-    static async getAllUsers() {
-        try {
-            return await UserModel.find({});
+            var query = {email: email};
+            var values = {$set: {fname, lname, phone}};
+
+            return await UserModel.updateOne(query, values);
         } catch (error) {
             throw error;
         }
     }
 
-    static async updateUser(email, fname,lname,phone) {
+    static async updateUserImage(email, img) {
         try {
-            var query = {email:email};
-            var values = {$set: {fname,lname,phone}};
-
-            return await UserModel.updateOne(query,values);
-        } catch (error) {
-            throw error;
-        }
-    }
-    static async updateUser(email, img) {
-        try {
-            var query = {email:email};
+            var query = {email: email};
             var values = {$set: {img}};
 
-            return await UserModel.updateOne(query,values);
+            return await UserModel.updateOne(query, values);
         } catch (error) {
             throw error;
         }

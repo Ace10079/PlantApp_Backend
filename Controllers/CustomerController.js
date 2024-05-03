@@ -11,14 +11,14 @@ exports.registerUser = async (req, res, next) => {
     }
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.updateUserProfile = async (req, res, next) => {
     try {
-        const { email,fname,lname,phone } = req.body; 
-        const updatedUser = await CustomerService.updateUser(email, fname,lname,phone);
+        const { email, fname, lname, phone } = req.body;
+        const updatedUser = await CustomerService.updateUserProfile(email, fname, lname, phone);
         if (!updatedUser) {
             return res.status(404).json({ status: false, message: "User not found" });
         }
-        res.status(200).json({ status: true, message: "User updated successfully", data: updatedUser });
+        res.status(200).json({ status: true, message: "User profile updated successfully", data: updatedUser });
     } catch (error) {
         next(error);
     }
