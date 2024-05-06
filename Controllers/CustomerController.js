@@ -1,10 +1,14 @@
 const CustomerService = require('../Services/Customerservice');
-
-
 exports.registerUser = async (req, res, next) => {
     try {
-        const { fname, lname, phone, time, img,email, password } = req.body;
-        const user = await CustomerService.createUser(fname, lname, phone, time,img, email, password);
+        const { fname, lname, phone, time, email, password } = req.body;
+
+        // Check if req.file exists and if img property is present
+        if (!req.file || !req.file.filename) {
+            return res.status(400).json({ status: false, message: "No file uploaded" });
+        }
+
+        const user = await CustomerService.createUser(fname, lname, phone, time, req.file.filename, email, password);
         res.status(201).json({ status: true, message: "User registered successfully", data: user });
     } catch (error) {
         next(error);
