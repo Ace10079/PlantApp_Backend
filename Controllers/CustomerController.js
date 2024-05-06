@@ -1,4 +1,5 @@
 const CustomerService = require('../Services/Customerservice');
+const bcrypt = require('bcrypt');
 exports.registerUser = async (req, res, next) => {
     try {
         const { fname, lname, phone, time, email, password } = req.body;
@@ -63,3 +64,21 @@ exports.getUserByEmail = async (req, res, next) => {
         res.status(500).json({ status: false, message: "Error retrieving user" });
     }
 };
+exports.login = async (req, res, next) => {
+    try {
+        const { email, password } = req.body;
+        const Customer = await CustomerService.loginUser(email, password);
+        if (!Customer) {
+           return res.status(401).json({ message: 'Customer not found' })
+        }
+        const isMatchCustomer = await bcrypt.compare(password,Customer.password);
+
+        if (!isMatchCustomer) {
+           return res.status(401).json({ message: 'Invalid Password' })
+        }
+       return  res.status(200).json(Customer);
+    } catch (error) {
+       next(error);
+        
+    }
+}

@@ -55,6 +55,14 @@ class CustomerService {
             throw error;
         }
     }
+    static async loginUser(email) {
+        try {
+            return await UserModel.findOne({ email });
+        } catch (error) {
+            throw error;
+        }
+    }
+    
 }
 
 module.exports = CustomerService;

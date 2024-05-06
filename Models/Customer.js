@@ -1,6 +1,7 @@
 const db = require('../Config/db');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const bcrypt = require('bcrypt');
 
 
 const CustomerSchema = new Schema({
@@ -36,6 +37,20 @@ const CustomerSchema = new Schema({
         type: String,
     },
 }, { timestamps: true });
+
+
+    CustomerSchema.pre('save', async function(next) {
+    const user = this;
+    if (!user.isModified('password')) return next();
+
+    try {
+        const hash = await bcrypt.hash(user.password, 10);
+        user.password = hash;
+        next();
+    } catch (error) {
+        return next(error);
+    }
+});
 
 const UserModel = db.model('customer',CustomerSchema);
 module.exports = UserModel;
