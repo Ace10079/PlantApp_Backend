@@ -22,5 +22,5 @@ const DiseaseSchema = new Schema({
     },
 }, { timestamps: true });
 
-const DiseaseModel = db.model('Image',DiseaseSchema);
+const DiseaseModel = db.model('Disease',DiseaseSchema);
 module.exports = DiseaseModel;

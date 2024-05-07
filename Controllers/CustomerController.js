@@ -10,6 +10,30 @@ exports.registerUser = async (req, res, next) => {
         next(error);
     }
 };
+exports.updateUserImage = async (req, res, next) => {
+    try {
+        const { email } = req.body;
+        
+        // Check if a file was uploaded
+        if (!req.file) {
+            return res.status(400).json({ status: false, message: "No image uploaded" });
+        }
+
+        const imgPath = req.file.path; // Path of the uploaded image
+
+        // Update user image
+        const updatedUser = await CustomerService.updateUserImage(email, imgPath);
+        
+        if (!updatedUser) {
+            return res.status(404).json({ status: false, message: "User not found" });
+        }
+
+        res.status(200).json({ status: true, message: "User image updated successfully", data: updatedUser });
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ status: false, message: "Error updating user image" });
+    }
+};
 
 exports.updateUserProfile = async (req, res, next) => {
     try {

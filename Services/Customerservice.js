@@ -1,8 +1,8 @@
 const UserModel = require('../Models/Customer');
 class CustomerService {
-    static async createUser(fname, lname, phone, time, img, email, password) {
+    static async createUser(fname, lname, phone, time, email,img, password) {
         try {
-          const newUser = new UserModel({ fname, lname, phone, time, img, email, password });
+          const newUser = new UserModel({ fname, lname, phone, time,email,img, password });
           return await newUser.save();
         } catch (error) {
           throw new Error("Error creating user: " + error.message);
@@ -13,6 +13,15 @@ class CustomerService {
         try {
             const user = await UserModel.findOne({ email }); // Query for a user with the specified email
             return user;
+        } catch (error) {
+            throw error;
+        }
+    }
+    static async updateUserImage(email, img) {
+        try {
+            var query = { email: email };
+            var values = { $set: { img } };
+            return await UserModel.updateOne(query, values);
         } catch (error) {
             throw error;
         }
