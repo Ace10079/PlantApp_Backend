@@ -6,17 +6,17 @@ const multer = require('multer');
 const path = require("path");
 
 
-const storage = multer.diskStorage({
-    destination: 'img',
-    filename: (req, file, cb) => {
-        cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-    },
-});
+// // const storage = multer.diskStorage({
+//     destination: 'img',
+//     filename: (req, file, cb) => {
+//         cb(null, `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
+//     },
+//});
 
 
 router.post('/login', UserController.login);
-const upload = multer({ storage: storage }).single('img');
-router.post('/customer',upload, UserController.registerUser);
+//const upload = multer({ storage: storage }).single('img');
+router.post('/customer', UserController.registerUser);
 router.post('/admin', AdminController.registerAdmin);
 router.put('/update', UserController.updateUserProfile);
 router.put('/updateadmin', AdminController.updateAdmin);
