@@ -4,6 +4,7 @@ const UserController = require('../Controllers/CustomerController');
 const AdminController=require('../Controllers/AdminController')
 const multer = require('multer');
 const path = require("path");
+const DiseaseController=require('../Controllers/DiseaseContoller')
 
 
  const storage = multer.diskStorage({
@@ -16,16 +17,19 @@ const path = require("path");
 
 router.post('/login', UserController.login);
 const upload = multer({ storage: storage }).single('img');
-router.post('/customer', UserController.registerUser);
-router.post('/admin', AdminController.registerAdmin);
-router.put('/update', UserController.updateUserProfile);
-router.put('/update-image', upload, UserController.updateUserImage);
+router.post('/customer/register', UserController.registerUser);
+router.post('/admin/register', AdminController.registerAdmin);
+router.post('/disease/register',DiseaseController.registerDisease);
+router.put('/update/customer', UserController.updateUserProfile);
+router.put('/update-image/customer', upload, UserController.updateUserImage);
 router.put('/updateadmin', AdminController.updateAdmin);
-router.get('/getuserbyemail', UserController.getUserByEmail);
-router.get('/getall', UserController.getAllUsers);
-router.get('/getadminbyemail', AdminController.getAdminByEmail);
-router.get('/getalladmin', AdminController.getAllAdmins);
 router.put('/adminupdate', AdminController.updateAdmin);
+router.get('/getall/customer', UserController.getAllUsers);
+router.get('/getall/disease', DiseaseController.getAllDisease);
+router.get('/getalladmin', AdminController.getAllAdmins);
+router.get('/getadminbyemail', AdminController.getAdminByEmail);
+router.get('/getuserbyemail/customer', UserController.getUserByEmail);
+router.get('/getdiseasebyname', DiseaseController.getDiseaseByName);
 router.delete('/deletecustomer',UserController.deleteUser);
 router.delete('/deleteadmin',AdminController.deleteAdmin);
 

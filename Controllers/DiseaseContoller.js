@@ -9,14 +9,14 @@ exports.registerDisease = async (req, res, next) => {
         next(error);
     }
 };
-exports.updateImage = async (req, res, next) => {
+exports.updateDisease = async (req, res, next) => {
     try {
-        const {disname} = req.body; // Assuming email is passed as a parameter
-        const updatedUser = await DiseaseService.updateDisease(disname);
-        if (!updatedUser) {
+        const {disname} = req.body; 
+        const updatedDisease = await DiseaseService.updateDisease(disname);
+        if (!updatedDisease) {
             return res.status(404).json({ status: false, message: "Disease not found" });
         }
-        res.status(200).json({ status: true, message: "Disease updated successfully", data: updatedUser });
+        res.status(200).json({ status: true, message: "Disease updated successfully", data: updatedDisease });
     } catch (error) {
         next(error);
     }
