@@ -2,26 +2,24 @@ const CustomerService = require('../Services/Customerservice');
 const bcrypt = require('bcrypt');
 exports.registerUser = async (req, res, next) => {
     try {
-        const { fname, lname, phone, time, email,img, password } = req.body
-
-        const user = await CustomerService.createUser(fname, lname, phone, time, email,img, password);
-        res.status(201).json({ status: true, message: "User registered successfully", data: user });
+      const { fname, lname, phone, email, img, password } = req.body;
+      const date = new Date(); // Current date and time
+      const time = date.toTimeString(); // Extracting time from the date
+  
+      const user = await CustomerService.createUser(fname, lname, phone, time, date, email, img, password);
+      res.status(201).json({ status: true, message: "User registered successfully", data: user });
     } catch (error) {
-        next(error);
+      next(error);
     }
-};
+  };
 exports.updateUserImage = async (req, res, next) => {
     try {
         const { email } = req.body;
-        
-        // Check if a file was uploaded
         if (!req.file) {
             return res.status(400).json({ status: false, message: "No image uploaded" });
         }
 
-        const imgPath = req.file.path; // Path of the uploaded image
-
-        // Update user image
+        const imgPath = req.file.path;
         const updatedUser = await CustomerService.updateUserImage(email, imgPath);
         
         if (!updatedUser) {
@@ -50,14 +48,14 @@ exports.updateUserProfile = async (req, res, next) => {
 
 exports.deleteUser = async (req, res, next) => {
     try {
-        const { email } = req.body; // Assuming email is in the request body for security
+        const { email } = req.body;
         const deletedUser = await CustomerService.deleteUser(email);
         if (!deletedUser) {
           return res.status(404).json({ status: false, message: "User not found" });
         }
         res.status(200).json({ status: true, message: "User deleted successfully", data: deletedUser });
       } catch (error) {
-        console.error(error.message); // Log the error for debugging
+        console.error(error.message); 
         res.status(500).json({ status: false, message: "Error deleting user" });
       }
 };

@@ -30,7 +30,7 @@ const AdminSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now // You can set a default value if needed
+        default: Date.now 
     },
     password: {
         type: String,

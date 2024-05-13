@@ -2,7 +2,9 @@ const AdminService = require('../Services/Adminservice');
 
 exports.registerAdmin = async (req, res, next) => {
     try {
-        const { name, phone, time, img, email, password, date } = req.body;
+        const { name, phone,img, email, password } = req.body;
+        const date = new Date();
+        const time = date.toTimeString();
         const admin = await AdminService.registerAdmin(name, phone, time, img, email, password, date);
         res.status(201).json({ status: true, message: "Admin registered successfully", data: admin });
     } catch (error) {

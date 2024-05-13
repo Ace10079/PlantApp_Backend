@@ -1,8 +1,8 @@
 const ImageModel=require('../Models/Image')
 class ImageService {
-    static async registerImage(name,dis_name, time, img, email, date) {
+    static async registerImage(name, dis_name, time, img, email, date) {
         try {
-            const newImage = new ImageModel({ name,dis_name, time, img, email, date });
+            const newImage = new ImageModel({ name, dis_name, time, img, email, date });
             return await newImage.save();
         } catch (error) {
             throw error;

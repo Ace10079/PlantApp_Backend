@@ -1,8 +1,8 @@
 const UserModel = require('../Models/Customer');
 class CustomerService {
-    static async createUser(fname, lname, phone, time, email,img, password) {
+    static async createUser(fname, lname, phone, time, date, email, img, password) {
         try {
-          const newUser = new UserModel({ fname, lname, phone, time,email,img, password });
+          const newUser = new UserModel({ fname, lname, phone, time, date, email, img, password });
           return await newUser.save();
         } catch (error) {
           throw new Error("Error creating user: " + error.message);
