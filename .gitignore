@@ -1,0 +1,29 @@
+# Dependency directories
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Build files
+build/
+dist/
+out/
+
+# Environment variables file
+.env
+
+# OS and IDE files
+.DS_Store
+.idea/
+.vscode/
+
+# Dependency lock files
+package-lock.json
+yarn.lock
+
+# Runtime files
+npm-debug.log*
+
+# Configuration files
+config.js
