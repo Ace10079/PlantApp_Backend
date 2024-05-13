@@ -1,7 +1,7 @@
 const db = require('../Config/db');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 
 const CustomerSchema = new Schema({

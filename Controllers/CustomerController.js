@@ -1,5 +1,5 @@
 const CustomerService = require('../Services/Customerservice');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 exports.registerUser = async (req, res, next) => {
     try {
       const { fname, lname, phone, email, img, password } = req.body;

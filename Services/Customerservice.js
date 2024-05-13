@@ -17,15 +17,7 @@ class CustomerService {
             throw error;
         }
     }
-    static async updateUserImage(email, img) {
-        try {
-            var query = { email: email };
-            var values = { $set: { img } };
-            return await UserModel.updateOne(query, values);
-        } catch (error) {
-            throw error;
-        }
-    }
+  
     static async updateUserProfile(email, fname, lname, phone) {
         try {
             var query = {email: email};
