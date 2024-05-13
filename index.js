@@ -5,7 +5,7 @@ var cors = require('cors')
 const CustomerRouter = require('./Routes/CustomerRouter');
 app.use(express.json());
 app.use(cors())
-require('dotenv').config();
+
 
 app.use(bodyParser.json());
 
