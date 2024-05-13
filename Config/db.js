@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const connection = mongoose.createConnection(process.env.MONGODB_URI);
+const connection = mongoose.createConnection(`mongodb+srv://karan:karan@cluster0.xi3owp9.mongodb.net/Backend?retryWrites=true&w=majority&appName=Cluster0`);
 
 connection.on('open', () => {
     console.log("MongoDB Connected");

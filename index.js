@@ -6,7 +6,6 @@ const CustomerRouter = require('./Routes/CustomerRouter');
 app.use(express.json());
 app.use(cors())
 
-
 app.use(bodyParser.json());
 
 // Mount the CustomerRouter
