@@ -24,12 +24,16 @@ exports.updateDisease = async (req, res, next) => {
 
 exports.deleteDisease = async (req, res, next) => {
     try {
-        const { disname } = req.query;
-        const deletedData = await DiseaseService.deleteDisease(disname);
-        res.status(200).json({ status: true, message: "Disease deleted successfully", data: deletedData });
-    } catch (error) {
-        next(error);
-    }
+        const { disname } = req.body; // Assuming email is in the request body for security
+        const deletedDisease = await DiseaseService.deleteDisease(disname);
+        if (!deletedDisease) {
+          return res.status(404).json({ status: false, message: "Disease not found" });
+        }
+        res.status(200).json({ status: true, message: "Disease deleted successfully", data: deletedDisease });
+      } catch (error) {
+        console.error(error.message); 
+        res.status(500).json({ status: false, message: "Error deleting Disease" });
+      }
 };
 exports.getAllDisease = async (req, res, next) => {
     try {

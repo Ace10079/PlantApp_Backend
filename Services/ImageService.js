@@ -38,10 +38,11 @@ class ImageService {
 
     static async deleteImage(name) {
         try {
-            return await ImageModel.findOneAndDelete({ name });
-        } catch (error) {
+            const deletedImage = await ImageModel.findOneAndDelete({ name });
+            return deletedImage;
+          } catch (error) {
             throw error;
-        }
+          }
     }
 }
 

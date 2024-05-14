@@ -6,7 +6,6 @@ exports.registerImage = async (req, res, next) => {
         if (!req.file || !req.file.filename) {
             return res.status(400).json({ status: false, message: "No file uploaded" });
         }
-        // Set the current date and time
         const date = new Date();
         const time = date.toTimeString();
         const image = await ImageService.registerImage(name, dis_name, time, req.file.filename, email, date);
@@ -30,12 +29,16 @@ exports.updateImage = async (req, res, next) => {
 
 exports.deleteImage = async (req, res, next) => {
     try {
-        const { name } = req.query; // Assuming email is passed as a parameter
-        const deletedData = await ImageService.deleteImage(name);
-        res.status(200).json({ status: true, message: "Image deleted successfully", data: deletedData });
-    } catch (error) {
-        next(error);
-    }
+        const { name } = req.body;
+        const deletedImage = await ImageService.deleteImage(name);
+        if (!deletedImage) {
+          return res.status(404).json({ status: false, message: "Image not found" });
+        }
+        res.status(200).json({ status: true, message: "Image deleted successfully", data: deletedImage });
+      } catch (error) {
+        console.error(error.message); 
+        res.status(500).json({ status: false, message: "Error deleting Image" });
+      }
 };
 exports.getAllImage = async (req, res, next) => {
     try {

@@ -29,11 +29,14 @@ router.put('/adminupdate', AdminController.updateAdmin);
 router.get('/getall/customer', UserController.getAllUsers);
 router.get('/getall/disease', DiseaseController.getAllDisease);
 router.get('/getall/admin', AdminController.getAllAdmins);
+router.get('/getall/image', ImageController.getAllImage);
 router.get('/getadminbyemail', AdminController.getAdminByEmail);
 router.get('/getuserbyemail/customer', UserController.getUserByEmail);
 router.get('/getdiseasebyname', DiseaseController.getDiseaseByName);
 router.delete('/deletecustomer',UserController.deleteUser);
 router.delete('/deleteadmin',AdminController.deleteAdmin);
+router.delete('/deleteimage',ImageController.deleteImage);
+router.delete('/deletedisease',DiseaseController.deleteDisease);
 
 
 module.exports = router;

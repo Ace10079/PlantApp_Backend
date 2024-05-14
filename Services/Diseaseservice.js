@@ -38,10 +38,11 @@ class DiseaseService {
 
     static async deleteDisease(disname) {
         try {
-            return await DiseaseModel.findOneAndDelete({ disname });
-        } catch (error) {
+            const deletedDisease = await DiseaseModel.findOneAndDelete({ disname });
+            return deletedDisease;
+          } catch (error) {
             throw error;
-        }
+          }
     }
 }
 
