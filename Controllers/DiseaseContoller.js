@@ -11,9 +11,9 @@ exports.registerDisease = async (req, res, next) => {
 };
 exports.updateDisease = async (req, res, next) => {
     try {
-        const {disname} = req.body; 
-        const updatedDisease = await DiseaseService.updateDisease(disname);
-        if (!updatedDisease) {
+        const { disname, desc, solution } = req.body;
+        const updatedDisease = await DiseaseService.updateDisease(disname, desc, solution);
+        if (updatedDisease.nModified === 0) {
             return res.status(404).json({ status: false, message: "Disease not found" });
         }
         res.status(200).json({ status: true, message: "Disease updated successfully", data: updatedDisease });

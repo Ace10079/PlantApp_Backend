@@ -25,16 +25,17 @@ class DiseaseService {
         }
     }
 
-    static async updateDisease(disname) {
+    static async updateDisease(disname, desc, solution) {
         try {
-            var query = {disname:disname};
-            var values = {$set: {disname,desc,solution}};
+            const query = { disname: disname };
+            const update = { desc, solution };
 
-            return await DiseaseModel.updateOne(query,values);
+            return await DiseaseModel.updateOne(query, update);
         } catch (error) {
             throw error;
         }
     }
+
 
     static async deleteDisease(disname) {
         try {
