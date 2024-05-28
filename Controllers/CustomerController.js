@@ -19,7 +19,7 @@ exports.updateUserImage = async (req, res, next) => {
             return res.status(400).json({ status: false, message: "No image uploaded" });
         }
 
-        const imgPath = req.file.path;
+        const imgPath = req.file.filename;
         const updatedUser = await CustomerService.updateUserImage(email, imgPath);
         
         if (!updatedUser) {

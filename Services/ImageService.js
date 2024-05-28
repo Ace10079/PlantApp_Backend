@@ -1,8 +1,10 @@
 const ImageModel=require('../Models/Image')
+const IdcodeServices = require("./idcode_services");
 class ImageService {
-    static async registerImage(name, dis_name, time, img, email, date) {
+    static async registerImage(Image_id,name, dis_name, time, img, email, date) {
         try {
-            const newImage = new ImageModel({ name, dis_name, time, img, email, date });
+            var Image_id = await IdcodeServices.generateCode("Image");
+            const newImage = new ImageModel({Image_id, name, dis_name, time, img, email, date });
             return await newImage.save();
         } catch (error) {
             throw error;

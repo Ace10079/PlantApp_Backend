@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 
 const ImageSchema = new Schema({
     Image_id: {
-        type: Schema.Types.ObjectId,
-        auto: true
+        type: String,
+        required: true
     },
     name: {
         type: String,

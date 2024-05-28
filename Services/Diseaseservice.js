@@ -1,8 +1,10 @@
 const DiseaseModel=require('../Models/Disease')
+const IdcodeServices = require("./idcode_services");
 class DiseaseService {
-    static async registerDisease(disname,desc,solution) {
+    static async registerDisease(dis_id,disname,desc,solution) {
         try {
-            const newDisease = new DiseaseModel({ disname,desc,solution});
+            var  dis_id = await IdcodeServices.generateCode("Disease");
+            const newDisease = new DiseaseModel({ dis_id,disname,desc,solution});
             return await newDisease.save();
         } catch (error) {
             throw error;

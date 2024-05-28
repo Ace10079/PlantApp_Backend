@@ -1,8 +1,10 @@
 const AdminModel=require('../Models/Admin')
+const IdcodeServices = require("./idcode_services");
 class AdminService {
-    static async registerAdmin(name, phone, time, img, email, password, date) {
+    static async registerAdmin( admin_id,name, phone, time, img, email, password, date) {
         try {
-            const newAdmin = new AdminModel({ name, phone, time, img, email, password, date });
+            var admin_id = await IdcodeServices.generateCode("Admin");
+            const newAdmin = new AdminModel({ admin_id,name, phone, time, img, email, password, date });
             return await newAdmin.save();
         } catch (error) {
             throw error;

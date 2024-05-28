@@ -5,8 +5,8 @@ const { Schema } = mongoose;
 
 const DiseaseSchema = new Schema({
     dis_id: {
-        type: Schema.Types.ObjectId,
-        auto: true
+        type: String,
+        required: true
     },
     disname: {
         type: String,
