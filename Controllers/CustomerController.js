@@ -9,7 +9,11 @@ exports.registerUser = async (req, res, next) => {
         const user = await CustomerService.createUser(fname, lname, phone, time, email, img, password, date);
         res.status(201).json({ status: true, message: "User registered successfully", data: user });
     } catch (error) {
-        next(error);
+        if (error.message.includes('User already exists')) {
+            res.status(409).json({ status: false, message: error.message });
+        } else {
+            next(error);
+        }
     }
 };
 

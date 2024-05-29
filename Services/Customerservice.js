@@ -4,6 +4,12 @@ const IdcodeServices = require("./idcode_services");
 class CustomerService {
     static async createUser(fname, lname, phone, time, email, img, password, date) {
         try {
+            // Check if email already exists
+            const existingUser = await UserModel.findOne({ email });
+            if (existingUser) {
+                throw new Error('User already exists with this email');
+            }
+
             const user_id = await IdcodeServices.generateCode("Customer");
             const newUser = new UserModel({ user_id, fname, lname, phone, time, email, img, password, date });
             return await newUser.save();
