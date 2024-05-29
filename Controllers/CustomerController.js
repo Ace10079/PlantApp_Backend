@@ -1,17 +1,18 @@
 const CustomerService = require('../Services/Customerservice');
 const bcrypt = require('bcryptjs');
+
 exports.registerUser = async (req, res, next) => {
     try {
-      const { fname, lname, phone, email, img, password } = req.body;
-      const date = new Date(); // Current date and time
-      const time = date.toTimeString(); // Extracting time from the date
-  
-      const user = await CustomerService.createUser(fname, lname, phone, time, date, email, img, password);
-      res.status(201).json({ status: true, message: "User registered successfully", data: user });
+        const { fname, lname, phone, email, img, password } = req.body;
+        const date = new Date();
+        const time = date.toTimeString();
+        const user = await CustomerService.createUser(fname, lname, phone, time, email, img, password, date);
+        res.status(201).json({ status: true, message: "User registered successfully", data: user });
     } catch (error) {
-      next(error);
+        next(error);
     }
-  };
+};
+
 exports.updateUserImage = async (req, res, next) => {
     try {
         const { email } = req.body;
@@ -59,6 +60,7 @@ exports.deleteUser = async (req, res, next) => {
         res.status(500).json({ status: false, message: "Error deleting user" });
       }
 };
+
 exports.getAllUsers = async (req, res, next) => {
     try {
         const users = await CustomerService.getAllUsers();
@@ -67,6 +69,7 @@ exports.getAllUsers = async (req, res, next) => {
         next(error);
     }
 };
+
 exports.getUserByEmail = async (req, res, next) => {
     try {
         const { email } = req.query;
@@ -81,6 +84,7 @@ exports.getUserByEmail = async (req, res, next) => {
         res.status(500).json({ status: false, message: "Error retrieving user" });
     }
 };
+
 exports.login = async (req, res, next) => {
     try {
         const { email, password } = req.body;

@@ -1,16 +1,15 @@
 const AdminModel=require('../Models/Admin')
 const IdcodeServices = require("./idcode_services");
 class AdminService {
-    static async registerAdmin( admin_id,name, phone, time, img, email, password, date) {
+    static async registerAdmin(admin_id, name, phone, time, img, email, password, date) {
         try {
-            var admin_id = await IdcodeServices.generateCode("Admin");
-            const newAdmin = new AdminModel({ admin_id,name, phone, time, img, email, password, date });
+            admin_id = await IdcodeServices.generateCode("Admin"); // Ensure admin_id is properly assigned
+            const newAdmin = new AdminModel({ admin_id, name, phone, time, img, email, password, date });
             return await newAdmin.save();
         } catch (error) {
             throw error;
         }
     }
-
     static async getAdminByEmail(email) {
         try {
             return await AdminModel.findOne({ email });

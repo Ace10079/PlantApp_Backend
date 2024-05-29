@@ -2,13 +2,14 @@ const DiseaseService = require('../Services/Diseaseservice');
 
 exports.registerDisease = async (req, res, next) => {
     try {
-        const { disname,desc,solution } = req.body;
-        const dis = await DiseaseService.registerDisease(disname,desc,solution);
+        const { disname, desc, solution } = req.body;
+        const dis = await DiseaseService.registerDisease(disname, desc, solution);
         res.status(201).json({ status: true, message: "Disease registered successfully", data: dis });
     } catch (error) {
         next(error);
     }
 };
+
 exports.updateDisease = async (req, res, next) => {
     try {
         const { disname, desc, solution } = req.body;
