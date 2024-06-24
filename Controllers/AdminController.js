@@ -2,11 +2,11 @@ const AdminService = require('../Services/Adminservice');
 const IdcodeServices = require('../Services/idcode_services')
 exports.registerAdmin = async (req, res, next) => {
     try {
-        const { name, phone, img, email, password, role } = req.body; // Include role
+        const { name, phone,  email, password, role } = req.body; // Include role
         const date = new Date();
         const time = date.toTimeString();
         const admin_id = await IdcodeServices.generateCode("Admin");
-        const admin = await AdminService.registerAdmin(admin_id, name, phone, time, img, email, password, date, role); // Include role
+        const admin = await AdminService.registerAdmin(admin_id, name, phone, time, email, password, date, role); // Include role
         
         res.status(201).json({
             status: true,
@@ -58,5 +58,15 @@ exports.getAdminByEmail = async (req, res, next) => {
         res.status(200).json({ status: true, message: "Admin retrieved successfully", data: admin });
     } catch (error) {
         next(error);
+    }
+};
+exports.validateAdmin = async (req, res) => {
+    const { email, password } = req.body;
+    
+    try {
+        const admin = await AdminService.validateAdmin(email, password);
+        res.status(200).json({ message: "Login successful", admin });
+    } catch (error) {
+        res.status(400).json({ message: error.message });
     }
 };
