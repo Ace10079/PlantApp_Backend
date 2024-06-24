@@ -6,7 +6,7 @@ class AdminService {
     static async registerAdmin(admin_id, name, phone, time, email, password, date, role) {
         try {
             admin_id = await IdcodeServices.generateCode("Admin");
-            const hashedPassword = await bcrypt.hash(password, 10); // Hash the password
+            const hashedPassword = await bcrypt.hash(password, 10); 
             const newAdmin = new AdminModel({ admin_id, name, phone, time, email, password: hashedPassword, date, role });
             return await newAdmin.save();
         } catch (error) {
