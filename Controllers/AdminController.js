@@ -2,15 +2,11 @@ const AdminService = require('../Services/Adminservice');
 const IdcodeServices = require('../Services/idcode_services')
 exports.registerAdmin = async (req, res, next) => {
     try {
-        const { name, phone, img, email, password } = req.body;
+        const { name, phone, img, email, password, role } = req.body; // Include role
         const date = new Date();
         const time = date.toTimeString();
-        
-        // Generate admin ID
         const admin_id = await IdcodeServices.generateCode("Admin");
-
-        // Register admin
-        const admin = await AdminService.registerAdmin(admin_id, name, phone, time, img, email, password, date);
+        const admin = await AdminService.registerAdmin(admin_id, name, phone, time, img, email, password, date, role); // Include role
         
         res.status(201).json({
             status: true,
