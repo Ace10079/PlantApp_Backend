@@ -8,11 +8,11 @@ const ImageSchema = new Schema({
         type: String,
         required: true
     },
-    name: {
+    user_id: {//user_id
         type: String,
         required: true
     },
-    dis_name: {
+    dis_id: {//dis_id
         type: String,
         required: true
     },
@@ -26,7 +26,7 @@ const ImageSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now // 
+        default: Date.now 
     },
 }, { timestamps: true });
 

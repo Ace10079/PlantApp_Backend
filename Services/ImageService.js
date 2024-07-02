@@ -1,10 +1,10 @@
 const ImageModel=require('../Models/Image')
 const IdcodeServices = require("./idcode_services");
 class ImageService {
-    static async registerImage(name, dis_name, time, img, email, date) {
+    static async registerImage(user_id, dis_id, time, img, email, date) {
         try {
             const Image_id = await IdcodeServices.generateCode("Image");
-            const newImage = new ImageModel({ Image_id, name, dis_name, time, img, email, date });
+            const newImage = new ImageModel({ Image_id, user_id, dis_id, time, img, email, date });
             return await newImage.save();
         } catch (error) {
             throw error;
@@ -27,10 +27,10 @@ class ImageService {
         }
     }
 
-    static async updateImage(name,dis_name,date,time) {
+    static async updateImage(name,dis_id,date,time) {
         try {
             var query = {name:name};
-            var values = {$set: {dis_name,date,time}};
+            var values = {$set: {dis_id,date,time}};
 
             return await ImageModel.updateOne(query,values);
         } catch (error) {

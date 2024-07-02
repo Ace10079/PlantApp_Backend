@@ -16,6 +16,11 @@ const DiseaseSchema = new Schema({
         type: String,
         required: true
     },
+    user_id: {
+        type: String,
+        required: true
+    },
+    //userid
     solution: {
         type: String,
         required: true

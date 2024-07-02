@@ -4,7 +4,8 @@ class DiseaseService {
     static async registerDisease(disname,desc,solution) {
         try {
             var dis_id = await IdcodeServices.generateCode("Disease");
-            const newDisease = new DiseaseModel({dis_id,disname,desc,solution});
+            var user_id= await IdcodeServices.generateCode("Disease"); 
+            const newDisease = new DiseaseModel({dis_id,disname,desc,solution,user_id});
             return await newDisease.save();
         } catch (error) {
             throw error;
@@ -27,10 +28,10 @@ class DiseaseService {
         }
     }
 
-    static async updateDisease(disname, desc, solution) {
+    static async updateDisease(dis_id,disname, desc, solution) {
         try {
-            const query = { disname: disname };
-            const update = { desc, solution };
+            const query = { dis_id: dis_id };//disid
+            const update = { desc, solution,disname };//disname
 
             return await DiseaseModel.updateOne(query, update);
         } catch (error) {
