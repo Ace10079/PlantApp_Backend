@@ -27,17 +27,22 @@ class DiseaseService {
         }
     }
 
-    static async updateDisease(dis_id,disname, desc, solution) {
+    static async updateDisease(dis_id, disname, desc, solution) {
         try {
-            const query = { dis_id: dis_id };//disid
-            const update = { desc, solution,disname };//disname
-
-            return await DiseaseModel.updateOne(query, update);
+          const query = { dis_id: dis_id };
+          const update = { disname, desc, solution };
+          console.log("Updating disease with ID:", dis_id);
+          console.log("Update data:", update);
+      
+          const updatedDisease = await DiseaseModel.updateOne(query, update);
+          console.log("Update result:", updatedDisease);
+      
+          return updatedDisease;
         } catch (error) {
-            throw error;
+          console.error("Error updating disease:", error);
+          throw error;
         }
-    }
-
+      }
 
     static async deleteDisease(dis_id) {
         try {
