@@ -38,6 +38,7 @@ router.get('/getall/image', ImageController.getAllImage);
 router.get('/getadminbyemail', AdminController.getAdminByEmail);
 router.get('/getuserbyemail/customer', UserController.getUserByEmail);
 router.get('/getdiseasebyname', DiseaseController.getDiseaseByName);
+router.get('/get_apis', APIController.getAPIs); 
 router.delete('/deletecustomer',UserController.deleteUser);
 router.delete('/deleteadmin',AdminController.deleteAdmin);
 router.delete('/deleteimage',ImageController.deleteImage);

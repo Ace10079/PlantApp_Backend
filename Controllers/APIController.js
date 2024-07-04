@@ -23,3 +23,12 @@ exports.updateAPI = async (req, res, next) => {
         next(error);
     }
 };
+
+exports.getAPIs = async (req, res, next) => {
+    try {
+        const apis = await APIService.getAPIs();
+        res.status(200).json({ status: true, data: apis });
+    } catch (error) {
+        next(error);
+    }
+};

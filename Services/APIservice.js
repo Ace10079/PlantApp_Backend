@@ -22,6 +22,14 @@ class APIService {
             throw error;
         }
     }
+
+    static async getAPIs() {
+        try {
+            return await APIModel.find({});
+        } catch (error) {
+            throw error;
+        }
+    }
 }
 
 module.exports = APIService;
