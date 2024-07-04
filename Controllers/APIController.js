@@ -1,4 +1,4 @@
-const APIService = require('../Services/APIService');
+const APIService = require('../Services/APIservice');
 
 exports.registerAPI = async (req, res, next) => {
     try {
