@@ -6,6 +6,7 @@ const multer = require('multer');
 const path = require("path");
 const DiseaseController=require('../Controllers/DiseaseContoller')
 const ImageController=require('../Controllers/ImageController')
+const APIController=require('../Controllers/APIController')
 
 
  const storage = multer.diskStorage({
@@ -23,11 +24,13 @@ router.post('/admin/register', AdminController.registerAdmin);
 router.post('/disease/register',DiseaseController.registerDisease);
 router.post('/imageregister', upload, ImageController.registerImage);
 router.post('/validateAdmin',AdminController.validateAdmin);
+router.post('/add_api',APIController.registerAPI);
 router.put('/update/customer', UserController.updateUserProfile);
 router.put('/update-image/customer', upload, UserController.updateUserImage);
 router.put('/updateadmin', AdminController.updateAdmin);
 router.put('/updatedisease',DiseaseController.updateDisease);
 router.put('/adminupdate', AdminController.updateAdmin);
+router.put('/update_api', APIController.updateAPI);
 router.get('/getall/customer', UserController.getAllUsers);
 router.get('/getall/disease', DiseaseController.getAllDisease);
 router.get('/getall/admin', AdminController.getAllAdmins);
