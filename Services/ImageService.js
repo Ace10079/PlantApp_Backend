@@ -18,6 +18,7 @@ class ImageService {
             throw error;
         }
     }
+    
 
     static async getAllImage() {
         try {

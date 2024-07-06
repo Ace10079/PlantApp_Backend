@@ -18,6 +18,13 @@ class DiseaseService {
             throw error;
         }
     }
+    static async getDiseaseByUserID(user_id) {
+        try {
+            return await DiseaseModel.findOne({ user_id });
+        } catch (error) {
+            throw error;
+        }
+    }
 
     static async getAllDisease() {
         try {

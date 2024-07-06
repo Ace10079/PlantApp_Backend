@@ -53,3 +53,12 @@ exports.getDiseaseByName = async (req, res, next) => {
         next(error);
     }
 };
+exports.getDiseaseByUserID = async (req, res, next) => {
+    try {
+        const {user_id} = req.query;
+        const user = await DiseaseService.getDiseaseByUserID(user_id);
+        res.status(200).json({ status: true, message: "Disease retrieved successfully", data: user });
+    } catch (error) {
+        next(error);
+    }
+};
