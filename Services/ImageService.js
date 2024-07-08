@@ -13,7 +13,7 @@ class ImageService {
 
     static async getImageByName(user_id) {
         try {
-            return await ImageModel.findOne({user_id });
+            return await ImageModel.find({user_id });
         } catch (error) {
             throw error;
         }

@@ -20,7 +20,7 @@ class DiseaseService {
     }
     static async getDiseaseByUserID(user_id) {
         try {
-            return await DiseaseModel.findOne({ user_id });
+            return await DiseaseModel.find({ user_id });
         } catch (error) {
             throw error;
         }
