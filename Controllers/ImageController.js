@@ -29,8 +29,8 @@ exports.updateImage = async (req, res, next) => {
 
 exports.deleteImage = async (req, res, next) => {
     try {
-        const { user_id } = req.body;
-        const deletedImage = await ImageService.deleteImage(user_id);
+        const { Image_id } = req.body;
+        const deletedImage = await ImageService.deleteImage(Image_id);
         if (!deletedImage) {
           return res.status(404).json({ status: false, message: "Image not found" });
         }

@@ -39,9 +39,9 @@ class ImageService {
         }
     }
 
-    static async deleteImage(user_id) {
+    static async deleteImage(Image_id) {
         try {
-            const deletedImage = await ImageModel.findOneAndDelete({ user_id });
+            const deletedImage = await ImageModel.findOneAndDelete({ Image_id });
             return deletedImage;
           } catch (error) {
             throw error;

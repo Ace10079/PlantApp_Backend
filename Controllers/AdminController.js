@@ -1,5 +1,6 @@
 const AdminService = require('../Services/Adminservice');
 const IdcodeServices = require('../Services/idcode_services')
+const jwt=require('jsonwebtoken')
 exports.registerAdmin = async (req, res, next) => {
     try {
         const { name, phone,  email, password, role } = req.body; // Include role
@@ -65,7 +66,8 @@ exports.validateAdmin = async (req, res) => {
     
     try {
         const admin = await AdminService.validateAdmin(email, password);
-        res.status(200).json({ message: "Login successful", admin });
+        const token=jwt.sign({email: admin.email},'PlantApp',{expiresIn:"1h"})
+        res.status(200).json({ token });
     } catch (error) {
         res.status(400).json({ message: error.message });
     }

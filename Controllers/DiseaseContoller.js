@@ -25,8 +25,8 @@ exports.updateDisease = async (req, res, next) => {
 
 exports.deleteDisease = async (req, res, next) => {
     try {
-        const { disname } = req.body; // Assuming email is in the request body for security
-        const deletedDisease = await DiseaseService.deleteDisease(disname);
+        const { dis_id } = req.body; // Assuming email is in the request body for security
+        const deletedDisease = await DiseaseService.deleteDisease(dis_id);
         if (!deletedDisease) {
           return res.status(404).json({ status: false, message: "Disease not found" });
         }
