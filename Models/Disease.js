@@ -25,6 +25,10 @@ const DiseaseSchema = new Schema({
         type: String,
         required: true
     },
+    cause: {
+        type: String,
+        required: true
+    },
 }, { timestamps: true });
 
 const DiseaseModel = db.model('Disease',DiseaseSchema);
